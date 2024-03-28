@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta
+            name="description"
+            content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
+
+    <title>React App</title>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+
+
+<div
+        id="preloader"
+        class="loading-spinner"
+        style="
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: white;
+        z-index: 9999999;
+          "
+>
+    <div class="spinner"></div>
+</div>
+
+<script>
+    let loader = document.getElementById("preloader");
+    document.body.style.overflow = "hidden";
+    window.addEventListener("load", function () {
+        window.scrollTo(0, 0);
+        //scrolled to top after refreshing the page
+        loader.style.display = "none";
+        document.body.style.overflowY = "auto";
+    });
+</script>
+</body>
+</html>
