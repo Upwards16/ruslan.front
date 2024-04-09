@@ -380,7 +380,7 @@ export default function ViewTasksPage() {
                                   return (
                                     <Draggable
                                       key={task.id}
-                                      draggableId={task.id}
+                                      draggableId={`${task.id}`}
                                       index={index}
                                     >
                                       {(provided, snapshot) => {

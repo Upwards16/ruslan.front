@@ -14,16 +14,19 @@ export const ClientsService = {
   GetClientProjectList(searchParams: any) {
     return useAsync(async () => {
       return await $axios.get(
-          "/projects/" + CreateCleanSearchParams(searchParams)
+        "/projects/" + CreateCleanSearchParams(searchParams)
       );
     }, [CreateCleanSearchParams(searchParams)]);
   },
   GetClientByAsyncHook(id: string) {
     return useAsync(async () => {
-      return await $axios.get(
-          "/clients/" + id + "/"
-      );
+      return await $axios.get("/clients/" + id + "/");
     }, [id]);
+  },
+  GetClientStatuses() {
+    return useAsync(async () => {
+      return await $axios.get("/clients/statuses/");
+    }, []);
   },
   async CreateClient(data: any) {
     return await $axios.post("/clients/create/", data);
