@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 
 export const $axios = axios.create({
   withCredentials: false,
-  baseURL: process.env.REACT_APP_API,
+  baseURL: import.meta.env.VITE_APP_CRM_API,
 });
 
 export const access_token_name = "upwards_access_token";

@@ -1,6 +1,7 @@
 {
   "name": "upcrm",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -12,15 +13,13 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.58",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.11",
+    "@vitejs/plugin-react": "^4.2.1",
     "axios": "^1.5.1",
     "chart.js": "^4.4.0",
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
-    "env-cmd": "^10.1.0",
     "framer-motion": "^10.16.4",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
@@ -31,17 +30,17 @@
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.16.0",
-    "react-scripts": "5.0.1",
     "react-uuid": "^2.0.0",
     "typescript": "^4.9.5",
     "typescript-cookie": "^1.0.6",
+    "vite": "^5.2.8",
+    "vite-tsconfig-paths": "^4.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "env-cmd -f .env react-scripts start",
-    "build": "env-cmd react-scripts build",
-    "test": "env-cmd react-scripts test",
-    "eject": "env-cmd react-scripts eject"
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "eslintConfig": {
     "extends": [
@@ -62,9 +61,11 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-transform-private-property-in-object": "^7.24.1",
     "@types/react-beautiful-dnd": "^13.1.6",
     "@types/uuid": "^9.0.6",
-    "tailwindcss": "^3.3.3"
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
   }
 }

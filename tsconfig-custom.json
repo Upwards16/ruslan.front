@@ -3,7 +3,5 @@
   "compilerOptions": {
     "strict": false
   },
-  "files": [
-    "./src/pages/ViewTasksPage.tsx",
-  ]
+  "files": ["./src/pages/ViewTasksPage.tsx"]
 }
