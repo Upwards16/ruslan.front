@@ -167,14 +167,6 @@ export default function ViewLeadsPage() {
               </div>
               <div>
                 <p className="text-[10px] font-medium text-[#8C8C8C]">
-                  Дата рождения
-                </p>
-                <p className="text-[16px] text-[#505050] font-medium">
-                  {lead.result?.data.date}
-                </p>
-              </div>
-              <div>
-                <p className="text-[10px] font-medium text-[#8C8C8C]">
                   Напоминание
                 </p>
                 <p className="text-[16px] text-[#505050] font-medium">

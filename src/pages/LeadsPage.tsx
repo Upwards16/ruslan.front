@@ -30,6 +30,7 @@ import { DateTimePicker } from "@mui/x-date-pickers";
 import { getCookie } from "typescript-cookie";
 import { position } from "../https/axiosInstance";
 import { accessRules } from "../components/MiddleWare";
+import { format } from "date-fns";
 
 const modalInitialValues = {
   open: false,
@@ -122,10 +123,11 @@ export default function LeadsPage() {
         hide: false,
       },
       {
-        field: "date",
+        field: "date_created",
         headerName: "Дата",
         width: "120px",
         hide: false,
+        renderCell: (params) => format(params.date_created, "dd.MM.yyyy"),
       },
       {
         field: "reminder_date",
@@ -143,6 +145,19 @@ export default function LeadsPage() {
         width: "120px",
         hide: false,
         renderCell: (params: any) => params.status?.name,
+      },
+      {
+        field: "reminder_date",
+        headerName: "Дата последнего звонка",
+        width: "120px",
+        hide: false,
+        renderCell: (params: any) => format(params.reminder_date, "dd.MM.yyyy"),
+      },
+      {
+        field: "reminder_comment",
+        headerName: "Комментарий последнего звонка",
+        width: "120px",
+        hide: false,
       },
       {
         field: "comment",
@@ -243,6 +258,13 @@ export default function LeadsPage() {
         break;
 
       case "edit":
+        if (!payload.status) {
+          const res = confirm(
+            "Вы уверены, что хотите завершить сделку? \nЭто действие нельзя отменить"
+          );
+          if (!res) return;
+        }
+
         setIsLoading(true);
         LeadsService.UpdateLeads(payload)
           .then(() => {
@@ -675,7 +697,7 @@ export default function LeadsPage() {
                     <DateTimePicker
                       label="Напоминание"
                       ampm={false}
-                      format={"YYYY-MM-DD HH:mm"}
+                      format={"DD-MM-YYYY HH:mm"}
                       slotProps={{
                         textField: {
                           InputProps: {
@@ -697,7 +719,7 @@ export default function LeadsPage() {
                           values: {
                             ...modal.values,
                             reminder_date: date
-                              ? date.format("YYYY-MM-DD")
+                              ? date.format("MM-DD-YYYY")
                               : null,
                           },
                         });

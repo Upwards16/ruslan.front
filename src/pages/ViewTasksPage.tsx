@@ -508,31 +508,33 @@ export default function ViewTasksPage() {
                         </Droppable>
                       </div>
 
-                      <Button
-                        onClick={() => {
-                          setModal({
-                            ...modal,
-                            open: true,
-                            values: {
-                              ...modalInitialValues.values,
-                              column: columnId,
-                              project: id,
-                            },
-                            action: "add",
-                          });
-                        }}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                          padding: "20px",
-                        }}
-                      >
-                        <AddIcon />
-                        <p className="text-[12px] font-[700] text-[#4E54E1]">
-                          Добавить задачу
-                        </p>
-                      </Button>
+                      {id !== "all" && (
+                        <Button
+                          onClick={() => {
+                            setModal({
+                              ...modal,
+                              open: true,
+                              values: {
+                                ...modalInitialValues.values,
+                                column: columnId,
+                                project: id,
+                              },
+                              action: "add",
+                            });
+                          }}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                            padding: "20px",
+                          }}
+                        >
+                          <AddIcon />
+                          <p className="text-[12px] font-[700] text-[#4E54E1]">
+                            Добавить задачу
+                          </p>
+                        </Button>
+                      )}
                     </div>
                   );
                 }
