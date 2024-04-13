@@ -151,13 +151,20 @@ export default function LeadsPage() {
         headerName: "Дата последнего звонка",
         width: "120px",
         hide: false,
-        renderCell: (params: any) => format(params.reminder_date, "dd.MM.yyyy"),
+        renderCell: (params: any) =>
+          params.call_history.length > 0
+            ? format(params.call_history[0].date, "dd.MM.yyyy HH:mm")
+            : "Отсутствует",
       },
       {
         field: "reminder_comment",
         headerName: "Комментарий последнего звонка",
         width: "120px",
         hide: false,
+        renderCell: (params: any) =>
+          params.call_history.length > 0
+            ? params.call_history[0].comment
+            : "Отсутствует",
       },
       {
         field: "comment",
@@ -258,7 +265,11 @@ export default function LeadsPage() {
         break;
 
       case "edit":
-        if (!payload.status) {
+        const finishedStatus = leadsStatusList.result?.data.find(
+          (status: any) => payload.status === status.id
+        );
+        console.log(finishedStatus);
+        if (finishedStatus.is_finished) {
           const res = confirm(
             "Вы уверены, что хотите завершить сделку? \nЭто действие нельзя отменить"
           );

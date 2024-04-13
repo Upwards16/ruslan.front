@@ -114,13 +114,23 @@ export function ClientPage() {
         hide: false,
       },
       { field: "phone", headerName: "Номер", width: "120px", hide: false },
-      { field: "email", headerName: "Почта", width: "120px", hide: false },
+      {
+        field: "email",
+        headerName: "Почта",
+        width: "120px",
+        hide: false,
+        renderCell: (params: any) =>
+          params.email ? params.email : "не указано",
+      },
       {
         field: "birthday",
         headerName: "Дата рождения",
         width: "120px",
         hide: false,
-        renderCell: (params: any) => format(params.birthday, "dd.MM.yyyy"),
+        renderCell: (params: any) =>
+          params.birthday
+            ? format(params.birthday, "dd.MM.yyyy")
+            : "не указано",
       },
       {
         field: "traffic_source",

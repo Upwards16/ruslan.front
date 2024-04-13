@@ -819,23 +819,24 @@ export default function ViewTasksPage() {
                   <div className="flex flex-col justify-start items-start gap-[14px]">
                     <p className="text-[12px] font-[600]">Участники:</p>
                     <AvatarGroup max={4}>
-                      {taskColumns[modal.values.column]?.tasks
-                        .find((task: any) => task.id === modal.values.id)
-                        .participants.map(
-                          (participant: any, participantIndex: number) => (
-                            <Avatar
-                              key={participantIndex}
-                              {...stringAvatar(
-                                `${participant.firstname} ${participant.lastname}`,
-                                {
-                                  width: "27px",
-                                  height: "27px",
-                                  fontSize: "10px",
-                                }
-                              )}
-                            />
-                          )
-                        )}
+                      {taskColumns[modal.values.column]?.tasks &&
+                        taskColumns[modal.values.column]?.tasks 
+                          .find((task: any) => task.id === modal.values.id)
+                          .participants.map(
+                            (participant: any, participantIndex: number) => (
+                              <Avatar
+                                key={participantIndex}
+                                {...stringAvatar(
+                                  `${participant.firstname} ${participant.lastname}`,
+                                  {
+                                    width: "27px",
+                                    height: "27px",
+                                    fontSize: "10px",
+                                  }
+                                )}
+                              />
+                            )
+                          )}
                     </AvatarGroup>
                   </div>
                   <div className="flex flex-col justify-start items-start gap-[14px]">

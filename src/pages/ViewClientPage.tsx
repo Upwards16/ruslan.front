@@ -179,14 +179,18 @@ export default function ViewClientPage() {
                   Дата рождения
                 </p>
                 <h2 className="text-[16px] text-[#505050] font-medium">
-                  {format(client.result?.data.birthday, "dd.MM.yyyy")}
+                  {client.result.data.birthday
+                    ? format(client.result?.data.birthday, "dd.MM.yyyy")
+                    : "не указано"}
                 </h2>
               </div>
               <div>
                 <p className="text-[10px] font-medium text-[#8C8C8C]">Почта</p>
                 <h2 className="text-[16px] text-[#505050] font-medium">
                   <h2 className="text-[16px] text-[#505050] font-medium">
-                    {client.result?.data.email}
+                    {client.result.data.email
+                      ? client.result?.data.email
+                      : "не указано"}
                   </h2>
                 </h2>
               </div>

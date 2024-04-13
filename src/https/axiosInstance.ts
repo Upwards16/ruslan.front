@@ -113,7 +113,7 @@ $axios.interceptors.response.use(
         } catch (e) {
           Logout();
         }
-      } else {
+    } else {
         Logout();
       }
       throw error;

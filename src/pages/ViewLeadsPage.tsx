@@ -293,6 +293,11 @@ export default function ViewLeadsPage() {
               onSubmit={(event) => {
                 event.preventDefault();
                 handleCallAdd();
+                callList.forEach((call) => {
+                  if (call.edit) {
+                    handleCallSubmit(call);
+                  }
+                });
               }}
               className="w-full flex justify-start items-center gap-[10px] cursor-pointer"
             >
