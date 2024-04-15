@@ -69,6 +69,7 @@ const tableInitialValues = {
   filter: {
     start_date: "",
     end_date: "",
+    user: "",
     size: 20,
     page: 1,
     total_pages: 1,
@@ -107,13 +108,13 @@ export default function TimeSheetsPage() {
             : "Нет данных",
       },
       {
-        field: "date",
-        headerName: "Дата",
+        field: "project",
+        headerName: "Проект",
         width: "120px",
         hide: false,
-        renderCell: (params: any) =>
-          params.date !== null ? moment(params.date).format("DD.MM.YYYY") : "",
+        renderCell: (params: any) => params.task?.project?.name,
       },
+
       {
         field: "user",
         headerName: "Должность",
@@ -123,18 +124,12 @@ export default function TimeSheetsPage() {
           params.user ? `${params.user.position.name}` : "Нет данных",
       },
       {
-        field: "project",
-        headerName: "Проект",
+        field: "date",
+        headerName: "Дата",
         width: "120px",
         hide: false,
-        renderCell: (params: any) => params.task?.project?.name,
-      },
-      {
-        field: "task",
-        headerName: "Задача",
-        width: "150px",
-        hide: false,
-        renderCell: (params: any) => <p>{params.task?.task}</p>,
+        renderCell: (params: any) =>
+          params.date !== null ? moment(params.date).format("DD.MM.YYYY") : "",
       },
       {
         field: "time",
@@ -142,6 +137,13 @@ export default function TimeSheetsPage() {
         width: "120px",
         hide: false,
         renderCell: (params: any) => <p>{params.time} ч</p>,
+      },
+      {
+        field: "task",
+        headerName: "Задача",
+        width: "150px",
+        hide: false,
+        renderCell: (params: any) => <p>{params.task?.task}</p>,
       },
       {
         field: "comment",
@@ -408,14 +410,14 @@ export default function TimeSheetsPage() {
                   minWidth: "120px",
                   backgroundColor: "white",
                 }}
-                value={table.filter.employee}
+                value={table.filter.user}
                 label="Сотрудник"
                 onChange={(event) => {
                   setTable({
                     ...table,
                     filter: {
                       ...table.filter,
-                      employee: event.target.value,
+                      user: event.target.value,
                     },
                   });
                 }}

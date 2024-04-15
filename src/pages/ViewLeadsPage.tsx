@@ -298,7 +298,7 @@ export default function ViewLeadsPage() {
               onSubmit={(event) => {
                 event.preventDefault();
                 handleCallAdd();
-                callList.forEach((call) => {
+                callList.forEach((call: any) => {
                   if (call.edit) {
                     handleCallSubmit(call);
                   }

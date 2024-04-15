@@ -127,7 +127,7 @@ export default function LeadsPage() {
         headerName: "Дата",
         width: "120px",
         hide: false,
-        renderCell: (params) => format(params.date_created, "dd.MM.yyyy"),
+        renderCell: (params: any) => format(params.date_created, "dd.MM.yyyy"),
       },
       {
         field: "reminder_date",
@@ -153,7 +153,10 @@ export default function LeadsPage() {
         hide: false,
         renderCell: (params: any) =>
           params.call_history.length > 0
-            ? format(params.call_history[0].date, "dd.MM.yyyy HH:mm")
+            ? format(
+                params.call_history[params.call_history.length - 1].date,
+                "dd.MM.yyyy HH:mm"
+              )
             : "Отсутствует",
       },
       {
@@ -163,7 +166,7 @@ export default function LeadsPage() {
         hide: false,
         renderCell: (params: any) =>
           params.call_history.length > 0
-            ? params.call_history[0].comment
+            ? params.call_history[params.call_history.length - 1].comment
             : "Отсутствует",
       },
       {
@@ -597,11 +600,23 @@ export default function LeadsPage() {
                         {!leadsStatusList.loading &&
                           !leadsStatusList.error &&
                           leadsStatusList.result?.data.map(
-                            (status: any, index: number) => (
-                              <MenuItem key={index} value={status.id}>
-                                {status.name}
-                              </MenuItem>
-                            )
+                            (status: any, index: number) => {
+                              if (modal.action === "add") {
+                                if (!status.is_finished) {
+                                  return (
+                                    <MenuItem key={index} value={status.id}>
+                                      {status.name}
+                                    </MenuItem>
+                                  );
+                                }
+                              } else {
+                                return (
+                                  <MenuItem key={index} value={status.id}>
+                                    {status.name}
+                                  </MenuItem>
+                                );
+                              }
+                            }
                           )}
                       </Select>
                     </FormControl>

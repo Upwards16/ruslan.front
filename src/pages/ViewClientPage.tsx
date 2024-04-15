@@ -171,7 +171,7 @@ export default function ViewClientPage() {
                   Менеджер
                 </p>
                 <h2 className="text-[16px] text-[#505050] font-bold">
-                  {client.result?.data.manager?.fullname}
+                  {`${client.result?.data.manager?.firstname} ${client.result?.data.manager?.firstname}`}
                 </h2>
               </div>
               <div>
@@ -179,7 +179,7 @@ export default function ViewClientPage() {
                   Дата рождения
                 </p>
                 <h2 className="text-[16px] text-[#505050] font-medium">
-                  {client.result.data.birthday
+                  {client.result && client.result.data.birthday
                     ? format(client.result?.data.birthday, "dd.MM.yyyy")
                     : "не указано"}
                 </h2>
@@ -188,7 +188,7 @@ export default function ViewClientPage() {
                 <p className="text-[10px] font-medium text-[#8C8C8C]">Почта</p>
                 <h2 className="text-[16px] text-[#505050] font-medium">
                   <h2 className="text-[16px] text-[#505050] font-medium">
-                    {client.result.data.email
+                    {client.result && client.result.data.email
                       ? client.result?.data.email
                       : "не указано"}
                   </h2>
