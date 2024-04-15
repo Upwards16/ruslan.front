@@ -48,24 +48,23 @@ export default function ViewLeadsPage() {
   };
   const handleCallSubmit = (call: any) => {
     if (call.id === "") {
-      if (callInfo.comment !== "" && callInfo.date !== "") {
+      if (callInfo.comment !== "") {
         LeadsService.CreateCall({
           ...callInfo,
           lead: id,
         }).then((res) => {
+          console.log(res.data);
           setCallList((prevState: any) =>
             prevState.map((obj: any) => ({
               ...obj,
               ...(obj.id === call.id
                 ? {
-                    ...callInfo,
-                    id: res.data.id,
+                    ...res.data,
                     edit: false,
                   }
                 : {}),
             }))
           );
-          setCallInfo(callInfoInitialValue);
         });
       }
     } else {
@@ -87,7 +86,9 @@ export default function ViewLeadsPage() {
   };
   const handleCallCancel = () => {
     setCallList((prevState: any) =>
-      prevState.filter((obj: any) => obj.id !== "")
+      prevState
+        .filter((obj: any) => obj.id !== "")
+        .map((obj: any) => ({ ...obj, edit: false }))
     );
     setCallInfo(callInfoInitialValue);
   };
@@ -225,13 +226,13 @@ export default function ViewLeadsPage() {
                       <td>
                         <div>
                           {call.edit ? (
-                            <DateTimePicker
-                              value={callInfo.date}
-                              ampm={false}
-                              onChange={(time) => {
+                            <input
+                              type="datetime-local"
+                              value={callInfo.date ? callInfo.date : call.date}
+                              onChange={(e) => {
                                 setCallInfo({
                                   ...callInfo,
-                                  date: time,
+                                  date: e.target.value,
                                 });
                               }}
                               className="border-b pb-[5px]"
@@ -245,7 +246,11 @@ export default function ViewLeadsPage() {
                         <div>
                           {call.edit ? (
                             <input
-                              value={callInfo.comment}
+                              value={
+                                callInfo.comment
+                                  ? callInfo.comment
+                                  : call.comment
+                              }
                               onChange={(event) => {
                                 setCallInfo({
                                   ...callInfo,

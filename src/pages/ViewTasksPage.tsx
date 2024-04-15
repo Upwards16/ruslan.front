@@ -30,6 +30,8 @@ import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { getCookie } from "typescript-cookie";
+import { position } from "../https/axiosInstance";
 
 export const getColorsForDeadline = (deadlineDate: Date | string) => {
   const deadline = new Date(deadlineDate);
@@ -122,9 +124,12 @@ const onDragEnd = (result: any, columns: any, setColumns: any) => {
 
 export default function ViewTasksPage() {
   const { id } = useParams();
+
   const [taskColumns, setTaskColumns] = useState<any>({});
+
   const taskColumnsList = TasksService.GetTaskColumns();
   const markList = TasksService.GetTaskMarks();
+
   const taskParticipantsList = TasksService.GetTaskParticipants({
     project: id,
   });
@@ -190,8 +195,6 @@ export default function ViewTasksPage() {
               )
             );
           });
-
-          // const taskData = await Promise.all(arrOfColumns);
         };
         fetchData();
       }
@@ -624,7 +627,7 @@ export default function ViewTasksPage() {
 
                     <DatePicker
                       label="Дедлайн"
-                      format={"YYYY-MM-DD"}
+                      format={"DD-MM-YYYY"}
                       slotProps={{
                         textField: {
                           InputProps: {
@@ -820,7 +823,7 @@ export default function ViewTasksPage() {
                     <p className="text-[12px] font-[600]">Участники:</p>
                     <AvatarGroup max={4}>
                       {taskColumns[modal.values.column]?.tasks &&
-                        taskColumns[modal.values.column]?.tasks 
+                        taskColumns[modal.values.column]?.tasks
                           .find((task: any) => task.id === modal.values.id)
                           .participants.map(
                             (participant: any, participantIndex: number) => (
