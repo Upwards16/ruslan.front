@@ -585,7 +585,7 @@ export function ClientPage() {
                   />
                   <DatePicker
                     label="Дата рождения"
-                    format={"YYYY-MM-DD"}
+                    format={"DD-MM-YYYY"}
                     slotProps={{
                       textField: {
                         InputProps: {
