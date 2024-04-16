@@ -152,7 +152,7 @@ export default function TasksPage() {
           size="small"
           variant="outlined"
           placeholder="Поиск"
-          value={table.search}
+          value={table.filter.search}
           onChange={(e) =>
             setTable((prevState) => ({
               ...prevState,
