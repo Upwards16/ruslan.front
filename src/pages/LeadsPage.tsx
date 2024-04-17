@@ -362,7 +362,7 @@ export default function LeadsPage() {
       const data = tableList.result?.data;
       setTable((prevState) => ({
         ...prevState,
-        rows: data.results.map((row) => {
+        rows: data.results.map((row: any) => {
           const currentTime = new Date();
           const deadline = new Date(row.reminder_date);
           const timeDiff = deadline.getTime() - currentTime.getTime();
