@@ -36,7 +36,7 @@ import { DateTimePicker } from "@mui/x-date-pickers";
 import { getCookie } from "typescript-cookie";
 import { position } from "../https/axiosInstance";
 import { accessRules } from "../components/MiddleWare";
-import { format } from "date-fns";
+import { format, formatISO, parseISO } from "date-fns";
 
 const modalInitialValues = {
   open: false,
@@ -255,9 +255,6 @@ export default function LeadsPage() {
     for (let key in payload) {
       if (key === "date") {
         payload[key] = moment(payload[key]?.$d).format("DD-MM-YYYY");
-      }
-      if (key === "reminder_date") {
-        payload[key] = moment(payload[key]?.$d).format("DD-MM-YYYY hh:mm");
       }
       if (payload[key] === "") {
         delete payload[key];
@@ -799,9 +796,7 @@ export default function LeadsPage() {
                           ...modal,
                           values: {
                             ...modal.values,
-                            reminder_date: date
-                              ? date.format("MM-DD-YYYY")
-                              : null,
+                            reminder_date: date,
                           },
                         });
                       }}

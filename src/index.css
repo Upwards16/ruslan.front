@@ -424,6 +424,27 @@ input:not(:placeholder-shown) + label {
   padding-left: 0;
 }
 
+tr.disabled {
+  background-color: #f0f0f0;
+}
+
+tr.disabled:hover {
+  cursor: not-allowed;
+  background-color: #e7e7e7;
+}
+
+tr.error {
+  background-color: #ff00007f;
+}
+
+tr.error {
+  background-color: #ff00007f;
+}
+
+tr.error:hover {
+  background-color: #be00007f;
+}
+
 .projectsTable tr td:last-child,
 .projectsTable tr th:last-child {
   padding-right: 0;

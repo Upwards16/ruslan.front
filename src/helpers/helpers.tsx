@@ -157,13 +157,7 @@ export function CustomTable({
             {rows?.map((row: any, i: number) => (
               <tr
                 key={i}
-                style={{
-                  backgroundColor: row.disabled
-                    ? "#f0f0f0"
-                    : row.error
-                    ? "#ff00007f"
-                    : "initial",
-                }}
+                className={row.disabled ? "disabled" : row.error ? "error" : ""}
                 onDoubleClick={() => {
                   if (onRowDoubleClick) {
                     onRowDoubleClick(row);
