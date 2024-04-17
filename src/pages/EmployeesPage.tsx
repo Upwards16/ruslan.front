@@ -229,7 +229,7 @@ export default function EmployeesPage() {
     const payload = modal.values;
     for (let key in payload) {
       if (key === "date_of_birth" || key === "date_start_work") {
-        payload[key] = moment(payload[key]?.$d).format("YYYY-MM-DD");
+        payload[key] = moment(payload[key]?.$d).format("DD-MM-YYYY");
       }
       if (payload[key] === "") {
         delete payload[key];
@@ -662,7 +662,7 @@ export default function EmployeesPage() {
                         values: {
                           ...modal.values,
                           date_of_birth: date
-                            ? date.format("YYYY-MM-DD")
+                            ? date.format("DD-MM-YYYY")
                             : null,
                         },
                       });
@@ -693,7 +693,7 @@ export default function EmployeesPage() {
                         values: {
                           ...modal.values,
                           date_start_work: date
-                            ? date.format("YYYY-MM-DD")
+                            ? date.format("DD-MM-YYYY")
                             : null,
                         },
                       });

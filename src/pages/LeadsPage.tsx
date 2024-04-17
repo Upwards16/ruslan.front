@@ -8,6 +8,12 @@ import {
   ValidatePhoneNumber,
 } from "../helpers/helpers";
 import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   IconButton,
   InputLabel,
@@ -104,6 +110,12 @@ export default function LeadsPage() {
     }
     return rule.privileges;
   });
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const [modal, setModal] = useState<any>(modalInitialValues);
   const [table, setTable] = useState({
@@ -214,6 +226,7 @@ export default function LeadsPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmitModalForm = (e: any) => {
+    console.log("submit");
     e.preventDefault();
 
     //submit error check function
@@ -241,10 +254,10 @@ export default function LeadsPage() {
     const payload = modal.values;
     for (let key in payload) {
       if (key === "date") {
-        payload[key] = moment(payload[key]?.$d).format("YYYY-MM-DD");
+        payload[key] = moment(payload[key]?.$d).format("DD-MM-YYYY");
       }
       if (key === "reminder_date") {
-        payload[key] = moment(payload[key]?.$d).format("YYYY-MM-DD hh:mm");
+        payload[key] = moment(payload[key]?.$d).format("DD-MM-YYYY hh:mm");
       }
       if (payload[key] === "") {
         delete payload[key];
@@ -271,12 +284,8 @@ export default function LeadsPage() {
         const finishedStatus = leadsStatusList.result?.data.find(
           (status: any) => payload.status === status.id
         );
-        console.log(finishedStatus);
-        if (finishedStatus.is_finished) {
-          const res = confirm(
-            "Вы уверены, что хотите завершить сделку? \nЭто действие нельзя отменить"
-          );
-          if (!res) return;
+        if (finishedStatus.is_finished && !open) {
+          return setOpen(true);
         }
 
         setIsLoading(true);
@@ -290,7 +299,9 @@ export default function LeadsPage() {
           })
           .finally(() => {
             setIsLoading(false);
+            setOpen(false);
           });
+
         break;
 
       case "delete":
@@ -351,7 +362,18 @@ export default function LeadsPage() {
       const data = tableList.result?.data;
       setTable((prevState) => ({
         ...prevState,
-        rows: data.results,
+        rows: data.results.map((row) => {
+          const currentTime = new Date();
+          const deadline = new Date(row.reminder_date);
+          const timeDiff = deadline.getTime() - currentTime.getTime();
+          const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+
+          return {
+            ...row,
+            disabled: row.status.is_finished,
+            error: hours <= 3,
+          };
+        }),
         status: {
           ...prevState.status,
           loading: false,
@@ -527,7 +549,40 @@ export default function LeadsPage() {
               {modal.action === "delete" && `Удалить?`}
             </h1>
 
-            <form onSubmit={handleSubmitModalForm} className="pt-[40px] w-full">
+            <form
+              id="form"
+              onSubmit={handleSubmitModalForm}
+              className="pt-[40px] w-full"
+            >
+              <Dialog
+                open={open}
+                keepMounted
+                onClose={handleClose}
+                PaperProps={{
+                  component: "form",
+                  onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+                    event.preventDefault();
+                    handleClose();
+                    handleSubmitModalForm(event);
+                  },
+                }}
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle>{"Завершить сделку?"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    Вы действительно хотите завершить сделку? Это действие
+                    нельзя будет отменить
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Нет</Button>
+                  <Button type="submit" variant="contained">
+                    Да
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
               {modal.action !== "delete" ? (
                 <div>
                   <div className="grid grid-cols-2 gap-[30px] gap-x-[60px]">
@@ -695,7 +750,7 @@ export default function LeadsPage() {
 
                     {/* <DatePicker
                       label="Дата"
-                      format={"YYYY-MM-DD"}
+                      format={"DD-MM-YYYY"}
                       slotProps={{
                         textField: {
                           InputProps: {
@@ -714,7 +769,7 @@ export default function LeadsPage() {
                           ...modal,
                           values: {
                             ...modal.values,
-                            date: date ? date.format("YYYY-MM-DD") : null,
+                            date: date ? date.format("DD-MM-YYYY") : null,
                           },
                         });
                       }}

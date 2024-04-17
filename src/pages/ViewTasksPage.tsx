@@ -649,8 +649,7 @@ export default function ViewTasksPage() {
                           ...modal,
                           values: {
                             ...modal.values,
-                            // deadline: date ? date : dayjs(),
-                            deadline: date ? date.format("YYYY-MM-DD") : null,
+                            deadline: date ? date : null,
                           },
                         });
                       }}

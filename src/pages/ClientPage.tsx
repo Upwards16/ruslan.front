@@ -239,7 +239,7 @@ export function ClientPage() {
     const payload: any = modal.values;
     for (let key in payload) {
       if (key === "birthday") {
-        payload[key] = moment(payload[key]?.$d).format("YYYY-MM-DD");
+        payload[key] = moment(payload[key]?.$d).format("DD-MM-YYYY");
       }
       if (payload[key] === "") {
         delete payload[key];
@@ -606,7 +606,7 @@ export function ClientPage() {
                         ...modal,
                         values: {
                           ...modal.values,
-                          birthday: date ? date.format("YYYY-MM-DD") : null,
+                          birthday: date ? date.format("DD-MM-YYYY") : null,
                         },
                       });
                     }}

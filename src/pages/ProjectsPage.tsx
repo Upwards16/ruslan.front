@@ -265,7 +265,7 @@ export default function ProjectsPage() {
     const payload: any = modal.values;
     for (let key in payload) {
       if (key === "start_at" || key === "end_at") {
-        payload[key] = moment(payload[key]?.$d).format("YYYY-MM-DD");
+        payload[key] = moment(payload[key]?.$d).format("DD-MM-YYYY");
       }
       if (payload[key] === "") {
         delete payload[key];
@@ -571,7 +571,7 @@ export default function ProjectsPage() {
                   />
                   <DatePicker
                     label="Дата начала"
-                    format={"YYYY-MM-DD"}
+                    format={"DD-MM-YYYY"}
                     slotProps={{
                       textField: {
                         InputProps: {
@@ -592,7 +592,7 @@ export default function ProjectsPage() {
                         ...modal,
                         values: {
                           ...modal.values,
-                          start_at: date ? date.format("YYYY-MM-DD") : null,
+                          start_at: date ? date.format("DD-MM-YYYY") : null,
                         },
                       });
                     }}
@@ -600,7 +600,7 @@ export default function ProjectsPage() {
 
                   <DatePicker
                     label="Дата окончания"
-                    format={"YYYY-MM-DD"}
+                    format={"DD-MM-YYYY"}
                     slotProps={{
                       textField: {
                         InputProps: {
@@ -619,7 +619,7 @@ export default function ProjectsPage() {
                         ...modal,
                         values: {
                           ...modal.values,
-                          end_at: date ? date.format("YYYY-MM-DD") : null,
+                          end_at: date ? date.format("DD-MM-YYYY") : null,
                         },
                       });
                     }}

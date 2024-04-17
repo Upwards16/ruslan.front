@@ -28,6 +28,7 @@ import { position } from "../https/axiosInstance";
 import { useLocation, useNavigate } from "react-router-dom";
 import { accessRules } from "../components/MiddleWare";
 import { EmployeesService } from "../service/EmployeesService";
+import { format } from "date-fns";
 
 const modalInitialValues = {
   open: false,
@@ -128,8 +129,6 @@ export default function TimeSheetsPage() {
         headerName: "Дата",
         width: "120px",
         hide: false,
-        renderCell: (params: any) =>
-          params.date !== null ? moment(params.date).format("DD.MM.YYYY") : "",
       },
       {
         field: "time",
@@ -226,7 +225,7 @@ export default function TimeSheetsPage() {
     const payload = modal.values;
     for (let key in payload) {
       if (key === "date") {
-        payload[key] = moment(payload[key]?.$d).format("YYYY-MM-DD");
+        payload[key] = moment(payload[key]?.$d).format("DD-MM-YYYY");
       }
       if (payload[key] === "") {
         delete payload[key];
@@ -250,7 +249,10 @@ export default function TimeSheetsPage() {
 
       case "edit":
         setIsLoading(true);
-        TimeSheetsService.UpdateTimeSheets(payload)
+        TimeSheetsService.UpdateTimeSheets({
+          ...payload,
+          user: payload.user.id,
+        })
           .then(() => {
             tableList.execute();
             setModal(modalInitialValues);
@@ -290,7 +292,7 @@ export default function TimeSheetsPage() {
         ...params,
         project: params.task?.project?.id,
         task: params.task?.id,
-        date: params.date ? dayjs(params.date) : null,
+        date: params.date,
       },
     });
     setProjectSearchName(params.task?.project?.name);
@@ -549,6 +551,7 @@ export default function TimeSheetsPage() {
                       renderInput={(params) => (
                         <TextField
                           {...params}
+                          value={modal.values.project}
                           InputProps={{
                             ...params.InputProps,
                             sx: {
@@ -600,7 +603,7 @@ export default function TimeSheetsPage() {
 
                     <DatePicker
                       label="Дата"
-                      format={"YYYY-MM-DD"}
+                      format={"DD-MM-YYYY"}
                       slotProps={{
                         textField: {
                           InputProps: {
@@ -619,7 +622,7 @@ export default function TimeSheetsPage() {
                           ...modal,
                           values: {
                             ...modal.values,
-                            date: date ? date.format("YYYY-MM-DD") : null,
+                            date: date,
                           },
                         });
                       }}

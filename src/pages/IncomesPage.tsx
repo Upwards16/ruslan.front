@@ -28,6 +28,7 @@ import { getCookie } from "typescript-cookie";
 import { position } from "../https/axiosInstance";
 import { useLocation, useNavigate } from "react-router-dom";
 import { accessRules } from "../components/MiddleWare";
+import { format } from "date-fns";
 
 const modalInitialValues: any = {
   open: false,
@@ -115,6 +116,8 @@ export default function IncomesPage() {
         headerName: "Дата",
         width: "120px",
         hide: false,
+        renderCell: (params: any) =>
+          params.date ? format(params.date, "dd.MM.yyyy") : "",
       },
       {
         field: "project",
@@ -519,10 +522,12 @@ export default function IncomesPage() {
                     options={
                       !projectList.loading && !projectList.error
                         ? [
-                            ...projectList.result?.data.map((status: any) => ({
-                              id: status.id,
-                              label: status.name,
-                            })),
+                            ...projectList.result?.data.results.map(
+                              (status: any) => ({
+                                id: status.id,
+                                label: status.name,
+                              })
+                            ),
                           ]
                         : []
                     }
@@ -629,7 +634,7 @@ export default function IncomesPage() {
                         ...modal,
                         values: {
                           ...modal.values,
-                          date: date ? date.format("YYYY-MM-DD") : null,
+                          date: date ? date.format("DD-MM-YYYY") : null,
                         },
                       });
                     }}

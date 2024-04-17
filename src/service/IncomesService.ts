@@ -35,7 +35,7 @@ export const IncomesService = {
   GetProjectList(searchParams: any) {
     return useAsync(async () => {
       return await $axios.get(
-        "/projects/search/" + CreateCleanSearchParams(searchParams)
+        "/projects/" + CreateCleanSearchParams(searchParams)
       );
     }, [CreateCleanSearchParams(searchParams)]);
   },

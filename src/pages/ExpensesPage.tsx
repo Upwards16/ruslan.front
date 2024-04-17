@@ -189,7 +189,7 @@ export default function ExpensesPage() {
     const payload = modal.values;
     for (let key in payload) {
       if (key === "date") {
-        payload[key] = moment(payload[key]?.$d).format("YYYY-MM-DD");
+        payload[key] = moment(payload[key]?.$d).format("DD-MM-YYYY");
       }
       if (payload[key] === "") {
         delete payload[key];
@@ -545,7 +545,7 @@ export default function ExpensesPage() {
                           ...modal,
                           values: {
                             ...modal.values,
-                            date: date ? date.format("YYYY-MM-DD") : null,
+                            date: date,
                           },
                         });
                       }}
