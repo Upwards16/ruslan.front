@@ -433,15 +433,15 @@ tr.disabled:hover {
 }
 
 tr.error {
-  background-color: #ff00007f;
+  background: #fadcd9;
 }
 
 tr.error td {
-  color: "#fff";
+  color: #d92010;
 }
 
 tr.error:hover {
-  background-color: #be00007f;
+  background: #ecccc9;
 }
 
 .projectsTable tr td:last-child,

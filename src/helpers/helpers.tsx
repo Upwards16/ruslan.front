@@ -189,7 +189,7 @@ export function CustomTable({
                         style={{
                           width: column.width,
                           maxWidth: column.maxWidth,
-                          color: row.disabled ? "gray" : "initial",
+                          color: row.disabled && "gray",
                         }}
                         key={i}
                       >

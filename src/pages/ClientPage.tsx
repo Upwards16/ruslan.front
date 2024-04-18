@@ -315,7 +315,11 @@ export function ClientPage() {
       const data = tableList.result?.data;
       setTable((prevState) => ({
         ...prevState,
-        rows: data.results,
+        rows: data.results.map((client: any) =>
+          client.status.name === "Не подтвержденные"
+            ? { ...client, disabled: true }
+            : client
+        ),
         status: {
           ...prevState.status,
           loading: false,
