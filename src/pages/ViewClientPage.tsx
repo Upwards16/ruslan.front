@@ -171,7 +171,7 @@ export default function ViewClientPage() {
                   Менеджер
                 </p>
                 <h2 className="text-[16px] text-[#505050] font-bold">
-                  {`${client.result?.data.manager?.firstname} ${client.result?.data.manager?.firstname}`}
+                  {`${client.result?.data.manager?.firstname} ${client.result?.data.manager?.lastname}`}
                 </h2>
               </div>
               <div>

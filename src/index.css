@@ -429,7 +429,6 @@ tr.disabled {
 }
 
 tr.disabled:hover {
-  cursor: not-allowed;
   background-color: #e7e7e7;
 }
 
@@ -437,8 +436,8 @@ tr.error {
   background-color: #ff00007f;
 }
 
-tr.error {
-  background-color: #ff00007f;
+tr.error td {
+  color: "#fff";
 }
 
 tr.error:hover {
