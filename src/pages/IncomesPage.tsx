@@ -174,6 +174,7 @@ export default function IncomesPage() {
   const projectList = IncomesService.GetProjectList({ search: projectName });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [searchTimeout, setSearchTimeout] = useState<any>(null);
 
   const handleSubmitModalForm = (e: any) => {
     e.preventDefault();
@@ -380,15 +381,18 @@ export default function IncomesPage() {
           size="small"
           variant="outlined"
           placeholder="Поиск"
-          value={table.filter.search}
           onChange={(e) => {
-            setTable({
-              ...table,
-              filter: {
-                ...table.filter,
-                search: e.target.value,
-              },
-            });
+            clearTimeout(searchTimeout);
+            const timeout = setTimeout(() => {
+              setTable({
+                ...table,
+                filter: {
+                  ...table.filter,
+                  search: e.target.value,
+                },
+              });
+            }, 400);
+            setSearchTimeout(timeout);
           }}
           InputProps={{
             startAdornment: <SearchIcon />,

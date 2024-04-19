@@ -37,6 +37,8 @@ export default function TasksPage() {
   const statusList = ProjectsService.GetProjectStatuses();
   const clientList = ProjectsService.GetProjectClients();
 
+  const [searchTimeout, setSearchTimeout] = useState<any>(null);
+
   useEffect(() => {
     if (tableList.loading) {
       setTable((prevState) => ({
@@ -152,13 +154,19 @@ export default function TasksPage() {
           size="small"
           variant="outlined"
           placeholder="Поиск"
-          value={table.filter.search}
-          onChange={(e) =>
-            setTable((prevState) => ({
-              ...prevState,
-              filter: { ...prevState.filter, search: e.target.value },
-            }))
-          }
+          onChange={(e) => {
+            clearTimeout(searchTimeout);
+            const timeout = setTimeout(() => {
+              setTable({
+                ...table,
+                filter: {
+                  ...table.filter,
+                  search: e.target.value,
+                },
+              });
+            }, 400);
+            setSearchTimeout(timeout);
+          }}
           InputProps={{
             startAdornment: <SearchIcon />,
             sx: { borderRadius: "50px", backgroundColor: "white" },

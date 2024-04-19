@@ -5,6 +5,7 @@ import {
   CustomPageSizeInput,
   CustomTable,
   ValidateFormSubmitResponse,
+  searchTimeoutChange,
 } from "../helpers/helpers";
 import {
   FormControl,
@@ -203,6 +204,7 @@ export default function ProjectsPage() {
   const clientList = ProjectsService.GetProjectClients();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [searchTimeout, setSearchTimeout] = useState<any>(null);
 
   const getProject = async (params: any, action: string) => {
     let agreement = new File([""], "");
@@ -456,15 +458,19 @@ export default function ProjectsPage() {
           size="small"
           variant="outlined"
           placeholder="Поиск"
-          value={table.filter.search}
+          // value={table.filter.search}
           onChange={(e) => {
-            setTable({
-              ...table,
-              filter: {
-                ...table.filter,
-                search: e.target.value,
-              },
-            });
+            clearTimeout(searchTimeout);
+            const timeout = setTimeout(() => {
+              setTable({
+                ...table,
+                filter: {
+                  ...table.filter,
+                  search: e.target.value,
+                },
+              });
+            }, 400);
+            setSearchTimeout(timeout);
           }}
           InputProps={{
             startAdornment: <SearchIcon />,

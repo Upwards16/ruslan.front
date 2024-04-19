@@ -383,6 +383,14 @@ export default function LeadsPage() {
         },
       }));
     }
+    setModal({
+      ...modal,
+      validation: {
+        ...modal.validation,
+        error: {},
+        message: {},
+      },
+    });
   }, [tableList.loading, tableList.error, tableList.result?.data]);
   return (
     <>
