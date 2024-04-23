@@ -9,6 +9,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
 import { DateTimePicker } from "@mui/x-date-pickers";
+import { format } from "date-fns";
 
 const callInfoInitialValue = {
   id: "",
@@ -49,8 +50,14 @@ export default function ViewLeadsPage() {
   const handleCallSubmit = (call: any) => {
     if (call.id === "") {
       if (callInfo.comment !== "") {
+        const currentDate = new Date();
+
         LeadsService.CreateCall({
           ...callInfo,
+          date:
+            callInfo.date.length > 0
+              ? callInfo.date
+              : format(currentDate, "yyyy-MM-dd hh:mm"),
           lead: id,
         }).then((res) => {
           console.log(res.data);
