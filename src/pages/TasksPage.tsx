@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { searchTimeoutChange } from "../helpers/helpers";
 
 const tableInitialValues = {
   rows: [],
@@ -154,19 +155,15 @@ export default function TasksPage() {
           size="small"
           variant="outlined"
           placeholder="Поиск"
-          onChange={(e) => {
-            clearTimeout(searchTimeout);
-            const timeout = setTimeout(() => {
-              setTable({
-                ...table,
-                filter: {
-                  ...table.filter,
-                  search: e.target.value,
-                },
-              });
-            }, 400);
-            setSearchTimeout(timeout);
-          }}
+          onChange={(e) =>
+            searchTimeoutChange(
+              e,
+              table,
+              setTable,
+              searchTimeout,
+              setSearchTimeout
+            )
+          }
           InputProps={{
             startAdornment: <SearchIcon />,
             sx: { borderRadius: "50px", backgroundColor: "white" },

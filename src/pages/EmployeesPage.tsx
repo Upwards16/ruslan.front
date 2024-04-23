@@ -34,6 +34,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getCookie } from "typescript-cookie";
 import { position } from "../https/axiosInstance";
 import { accessRules } from "../components/MiddleWare";
+import { searchTimeoutChange } from "../helpers/helpers";
 import { format } from "date-fns";
 
 const modalInitialValues = {
@@ -449,19 +450,15 @@ export default function EmployeesPage() {
           size="small"
           variant="outlined"
           placeholder="Поиск"
-          onChange={(e) => {
-            clearTimeout(searchTimeout);
-            const timeout = setTimeout(() => {
-              setTable({
-                ...table,
-                filter: {
-                  ...table.filter,
-                  search: e.target.value,
-                },
-              });
-            }, 400);
-            setSearchTimeout(timeout);
-          }}
+          onChange={(e) =>
+            searchTimeoutChange(
+              e,
+              table,
+              setTable,
+              searchTimeout,
+              setSearchTimeout
+            )
+          }
           InputProps={{
             startAdornment: <SearchIcon />,
             sx: { borderRadius: "50px", backgroundColor: "white" },

@@ -362,13 +362,13 @@ export default function LeadsPage() {
         rows: data.results.map((row: any) => {
           const currentTime = new Date();
           const deadline = new Date(row.reminder_date);
-          const timeDiff = deadline.getTime() - currentTime.getTime();
-          const hours = Math.floor(timeDiff / (1000 * 60 * 60));
 
           return {
             ...row,
             disabled: row.status.is_finished,
-            error: hours <= 3,
+            error:
+              deadline <= currentTime ||
+              deadline.getDay() === currentTime.getDay(),
           };
         }),
         status: {

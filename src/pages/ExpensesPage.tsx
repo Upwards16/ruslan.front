@@ -505,7 +505,7 @@ export default function ExpensesPage() {
 
                     <TextField
                       variant={"outlined"}
-                      type="text"
+                      type="number"
                       helperText={modal.validation.message.amount}
                       error={modal.validation.error.amount}
                       label="Сумма"

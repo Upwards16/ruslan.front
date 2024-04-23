@@ -459,19 +459,15 @@ export default function ProjectsPage() {
           variant="outlined"
           placeholder="Поиск"
           // value={table.filter.search}
-          onChange={(e) => {
-            clearTimeout(searchTimeout);
-            const timeout = setTimeout(() => {
-              setTable({
-                ...table,
-                filter: {
-                  ...table.filter,
-                  search: e.target.value,
-                },
-              });
-            }, 400);
-            setSearchTimeout(timeout);
-          }}
+          onChange={(e) =>
+            searchTimeoutChange(
+              e,
+              table,
+              setTable,
+              searchTimeout,
+              setSearchTimeout
+            )
+          }
           InputProps={{
             startAdornment: <SearchIcon />,
             sx: { borderRadius: "50px", backgroundColor: "white" },

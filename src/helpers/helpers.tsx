@@ -477,3 +477,23 @@ export function stringAvatar(name: string, styles: any) {
     children: firstLetters,
   };
 }
+
+export function searchTimeoutChange(
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  table: any,
+  setTable: any,
+  searchTimeout: any,
+  setSearchTimeout: any
+) {
+  clearTimeout(searchTimeout);
+  const timeout = setTimeout(() => {
+    setTable({
+      ...table,
+      filter: {
+        ...table.filter,
+        search: e.target.value,
+      },
+    });
+  }, 400);
+  setSearchTimeout(timeout);
+}
